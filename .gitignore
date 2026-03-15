@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# venv
+.venv/
+
+# IDE
+.vscode/
+
+# output
+output/
+*.m
+
+# Docs
+docs/
+
+# OS
+.DS_Store
+Thumbs.db

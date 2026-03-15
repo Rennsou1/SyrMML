@@ -2,21 +2,24 @@ from setuptools import setup, find_packages
 
 setup(
     name="mmlsyc",
-    version="0.1.0",
-    description="MMLSyr Compiler - A higher-level MML language compiler",
-    long_description="""MMLSyr Compiler is a tool that compiles MMLSyr files to standard MML.
+    version="0.3.0",
+    description="MMLSyr Compiler - Preprocessor from MMLSyr extended syntax to standard PMD MML",
+    long_description="""MMLSyr Compiler compiles MMLSyr extended syntax into standard PMD MML.
 
-MMLSyr extends MML with the following features:
-- Support for relative path includes (compiled to absolute paths in standard MML)
-- Direct macro calls in K tracks (automatically compiled to R_i track definitions)
-
-This makes it easier to write and organize complex MML compositions.
+Features:
+- // line comments and ; inline separators (C-style)
+- Parameterized macros !Name($p1, $p2) with nested macro expansion
+- Backslash \\ multi-line macro continuation
+- K track macro calls with automatic R track generation
+- A-J channel inline macro expansion
+- CFG default channel filling
+- ## mmlsyc-specific directives
+- PMD # directive passthrough
+- #include with relative path support
 """,
-    url="https://github.com/syrmml/mmlsyc",
-    author="Syrmml Team",
-    author_email="team@syrmml.com",
+    author="Syruph-dot",
     license="MIT",
-    packages=find_packages(),
+    packages=find_packages(exclude=["test", "test.*"]),
     entry_points={
         "console_scripts": [
             "mmlsyc = mmlsyc.cli:main",
@@ -28,10 +31,10 @@ This makes it easier to write and organize complex MML compositions.
         "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.10",
 )

@@ -1,40 +1,40 @@
 #!/usr/bin/env python3
 
 """
-MMLSyr Compiler Main Module
+MMLSyr Compiler - Main Module
 
-Main compiler that coordinates preprocessing and parsing.
+Coordinates preprocessing and parsing as the main compiler.
 """
 
 from .preprocessor import Preprocessor
 from .parser import MMLSyrParser
 
 class MMLSyrCompiler:
-    """Main MMLSyr Compiler class."""
+    """MMLSyr Compiler main class."""
 
     def __init__(self):
-        """Initialize compiler."""
+        """Initialize the compiler."""
         self.preprocessor = Preprocessor()
         self.parser = MMLSyrParser()
 
     def compile(self, input_file, output_file=None):
-        """Compile MMLSyr file to standard MML.
+        """Compile an MMLSyr file to standard MML.
         
         Args:
-            input_file (str): Path to input MMLSyr file.
-            output_file (str): Path to output MML file.
-                If None, will output to stdout.
+            input_file (str): Input MMLSyr file path.
+            output_file (str): Output MML file path.
+                If None, no file is written.
         
         Returns:
             str: Compiled MML content.
         """
-        # Preprocess file (handle includes)
+        # Preprocess (handle includes and syntax sugar)
         preprocessed_content = self.preprocessor.process(input_file)
         
-        # Parse content (process K tracks)
+        # Parse (handle macros, K tracks, CFG)
         compiled_content = self.parser.parse(preprocessed_content)
         
-        # Write to output file if specified
+        # Write output file
         if output_file:
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(compiled_content)
@@ -42,7 +42,7 @@ class MMLSyrCompiler:
         return compiled_content
 
     def compile_string(self, content, base_path=None):
-        """Compile MMLSyr string to standard MML.
+        """Compile an MMLSyr string to standard MML.
         
         Args:
             content (str): MMLSyr content to compile.
@@ -51,11 +51,13 @@ class MMLSyrCompiler:
         Returns:
             str: Compiled MML content.
         """
-        # Set base path for preprocessor
         if base_path:
             self.preprocessor.base_path = base_path
         
-        # Parse content directly (no preprocessing for strings)
-        compiled_content = self.parser.parse(content)
+        # Apply preprocessor syntax sugar to string
+        preprocessed_content = self.preprocessor.process_string(content)
+        
+        # Parse
+        compiled_content = self.parser.parse(preprocessed_content)
         
         return compiled_content

@@ -4,10 +4,15 @@
 MMLSyr Compiler
 
 A compiler for MMLSyr language, which extends MML with features like:
-- Relative path includes
-- K track direct macro calls
-
-Author: Syrmml Team
+- // line comments and ; inline separators
+- Parameterized macros with nested expansion
+- Backslash line continuations for multi-line macros
+- K track macro calls with automatic R track generation
+- A-J channel inline macro expansion
+- CFG default channel filling
+- ## mmlsyc-specific directives
+- PMD # directive passthrough
+- Relative path #include support
 """
 
 from .compiler import MMLSyrCompiler
@@ -20,6 +25,6 @@ __all__ = [
     'MMLSyrParser'
 ]
 
-__version__ = "0.1.0"
-__author__ = "Syrmml Team"
+__version__ = "0.3.0"
+__author__ = "Syruph-dot"
 __license__ = "MIT"
